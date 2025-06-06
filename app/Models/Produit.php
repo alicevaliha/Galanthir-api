@@ -16,6 +16,7 @@ class Produit extends Model
         'est_du_jour',
         'prix',
         'quantite_en_stock',
+        'image_url'
     ];
 
     protected $casts = [
