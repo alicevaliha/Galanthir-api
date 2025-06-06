@@ -1,0 +1,127 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Gondor Chic API",
+        "description": "A Laravel-based API application for Magic VenteStock - the e-commerce platform for Minas Tirith's magical products. Features inventory management, order processing, and delivery tracking for fairy dust, mithril shirts, and other enchanted items sold through Gondor's retail network.",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000",
+            "description": "API Server"
+        }
+    ],
+    "paths": {
+        "/api/produits-du-jour": {
+            "get": {
+                "tags": [
+                    "Produits"
+                ],
+                "summary": "Get today's featured magical products",
+                "description": "Returns a list of magical products that are featured for today",
+                "operationId": "getProduitsDuJour",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Produit"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/api/produits": {
+            "get": {
+                "tags": [
+                    "Produits"
+                ],
+                "summary": "Get all magical products",
+                "description": "Returns a list of all magical products in the inventory",
+                "operationId": "getAllProduits",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Produit"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Produit": {
+                "title": "Produit",
+                "description": "Magical product model",
+                "required": [
+                    "id",
+                    "reference",
+                    "libelle",
+                    "prix",
+                    "quantite_en_stock"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "Unique identifier of the product",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "reference": {
+                        "description": "Product reference code",
+                        "type": "string",
+                        "example": "MTH-001"
+                    },
+                    "libelle": {
+                        "description": "Product name/label",
+                        "type": "string",
+                        "example": "Mithril Shirt - Size L"
+                    },
+                    "est_du_jour": {
+                        "description": "Whether this product is featured today",
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "prix": {
+                        "description": "Product price in gold coins",
+                        "type": "number",
+                        "format": "float",
+                        "example": 150.99
+                    },
+                    "quantite_en_stock": {
+                        "description": "Available quantity in stock",
+                        "type": "integer",
+                        "example": 25
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Produits",
+            "description": "API Endpoints for managing magical products"
+        }
+    ]
+}
