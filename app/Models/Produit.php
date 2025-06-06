@@ -52,6 +52,7 @@ use Illuminate\Database\Eloquent\Model;
  *         type="string",
  *         description="URL of the product image",
  *         example="vin_elrond.jpg"
+ *     )
  * )
  */
 class Produit extends Model
