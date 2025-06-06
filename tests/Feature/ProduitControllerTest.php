@@ -32,7 +32,8 @@ class ProduitControllerTest extends TestCase
                         'libelle',
                         'est_du_jour',
                         'prix',
-                        'quantite_en_stock'
+                        'quantite_en_stock',
+                        'image_url'
                     ]
                 ]);
 
@@ -42,15 +43,17 @@ class ProduitControllerTest extends TestCase
             'libelle' => 'Vin Elrond',
             'est_du_jour' => false,
             'prix' => '34.90',
-            'quantite_en_stock' => 12
+            'quantite_en_stock' => 12,
+            'image_url' => 'vin_elrond.jpg'
         ]);
 
         $response->assertJsonFragment([
             'reference' => 'REF002',
-            'libelle' => 'Potion de Lembas',
+            'libelle' => 'Hache de Gimli',
             'est_du_jour' => false,
             'prix' => '15.00',
-            'quantite_en_stock' => 0
+            'quantite_en_stock' => 0,
+            'image_url' => 'hache.jpg'
         ]);
 
         $response->assertJsonFragment([
@@ -58,7 +61,8 @@ class ProduitControllerTest extends TestCase
             'libelle' => 'Potion des Istari',
             'est_du_jour' => true,
             'prix' => '89.99',
-            'quantite_en_stock' => 3
+            'quantite_en_stock' => 3,
+            'image_url' => 'potion_des_istari.jpg'
         ]);
     }
 
@@ -88,7 +92,8 @@ class ProduitControllerTest extends TestCase
             'libelle' => 'Potion des Istari',
             'est_du_jour' => true,
             'prix' => '89.99',
-            'quantite_en_stock' => 3
+            'quantite_en_stock' => 3,
+            'image_url' => 'potion_des_istari.jpg'
         ]);
 
         // Verify non-featured products are not included

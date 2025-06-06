@@ -46,7 +46,12 @@ use Illuminate\Database\Eloquent\Model;
  *         type="integer",
  *         description="Available quantity in stock",
  *         example=12
- *     )
+ *     ),
+ *     @OA\Property(
+ *         property="image_url",
+ *         type="string",
+ *         description="URL of the product image",
+ *         example="vin_elrond.jpg"
  * )
  */
 class Produit extends Model
