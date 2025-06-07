@@ -131,7 +131,7 @@ This project includes comprehensive API documentation using Swagger/OpenAPI 3.0.
 Once the application is running, you can access the interactive API documentation at:
 
 -   **Development:** http://localhost:8000
--   **Production:** https://gondor-chic.mendrika.dev
+-   **Production:** https://gondor-chic-api.mendrika.dev
 
 ### 🔄 Regenerating Documentation
 
