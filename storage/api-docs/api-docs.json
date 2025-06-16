@@ -7,78 +7,28 @@
     },
     "servers": [
         {
-            "url": "https://gondor-chic-api.mendrika.dev",
+            "url": "http://localhost:8000",
             "description": "API Server"
-        },
-        {
-            "url": "https://gondor-chic-api.mendrika.dev"
         }
     ],
     "paths": {
-        "/api/produits-du-jour": {
-            "get": {
-                "tags": ["Produits"],
-                "summary": "Get today's featured magical products",
-                "description": "Returns a list of magical products that are featured for today",
-                "operationId": "getProduitsDuJour",
-                "responses": {
-                    "200": {
-                        "description": "Successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/Produit"
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal server error"
-                    }
-                }
-            }
-        },
-        "/api/produits": {
-            "get": {
-                "tags": ["Produits"],
-                "summary": "Get all magical products",
-                "description": "Returns a list of all magical products in the inventory",
-                "operationId": "getAllProduits",
-                "responses": {
-                    "200": {
-                        "description": "Successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/Produit"
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal server error"
-                    }
-                }
-            }
-        },
         "/api/auth/login": {
             "post": {
-                "tags": ["Clients"],
+                "tags": [
+                    "Clients"
+                ],
                 "summary": "Client login",
-                "description": "Authenticate user and return JWT access token",
+                "description": "Authenticate client and return JWT access token",
                 "operationId": "loginClient",
                 "requestBody": {
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
-                                "required": ["pseudo", "mot_de_passe"],
+                                "required": [
+                                    "pseudo",
+                                    "mot_de_passe"
+                                ],
                                 "properties": {
                                     "pseudo": {
                                         "description": "Username",
@@ -145,6 +95,62 @@
                     }
                 }
             }
+        },
+        "/api/produits-du-jour": {
+            "get": {
+                "tags": [
+                    "Produits"
+                ],
+                "summary": "Get today's featured magical products",
+                "description": "Returns a list of magical products that are featured for today",
+                "operationId": "getProduitsDuJour",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Produit"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/api/produits": {
+            "get": {
+                "tags": [
+                    "Produits"
+                ],
+                "summary": "Get all magical products",
+                "description": "Returns a list of all magical products in the inventory",
+                "operationId": "getAllProduits",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Produit"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -201,7 +207,12 @@
             "User": {
                 "title": "User",
                 "description": "User model for authentication and profile management",
-                "required": ["id", "pseudo", "nom", "prenom"],
+                "required": [
+                    "id",
+                    "pseudo",
+                    "nom",
+                    "prenom"
+                ],
                 "properties": {
                     "id": {
                         "description": "Unique identifier of the user",
@@ -236,12 +247,12 @@
     },
     "tags": [
         {
-            "name": "Produits",
-            "description": "API Endpoints for managing magical products"
+            "name": "Clients",
+            "description": "API Endpoints for client authentication and management"
         },
         {
-            "name": "Clients",
-            "description": "API Endpoints for client management"
+            "name": "Produits",
+            "description": "API Endpoints for managing magical products"
         }
     ]
 }
