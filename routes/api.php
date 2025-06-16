@@ -1,15 +1,14 @@
 <?php
 
-use App\Http\Controllers\api\ClientController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ProduitController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\ClientController;
 
 Route::get('/produits-du-jour', [ProduitController::class, 'produitsDuJour']);
 Route::get('/produits', [ProduitController::class, 'getAll']);
-Route::post('/login', [UserController::class, 'login']);
-Route::post('/register', [UserController::class, 'register']);
+Route::post('/auth/login', [ClientController::class, 'authenticate']);
 
 /*
 |--------------------------------------------------------------------------
