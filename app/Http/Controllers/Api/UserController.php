@@ -20,7 +20,7 @@ class UserController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/api/register",
+     *     path="/api/auth/register",
      *     operationId="registerUser",
      *     tags={"Users"},
      *     summary="Register a new user",
@@ -80,7 +80,7 @@ class UserController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/api/login",
+     *     path="/api/auth/login",
      *     operationId="loginUser",
      *     tags={"Users"},
      *     summary="User login",
