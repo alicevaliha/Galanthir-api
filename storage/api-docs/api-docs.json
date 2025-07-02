@@ -7,16 +7,17 @@
     },
     "servers": [
         {
-            "url": "http://localhost:8000",
+            "url": "https://gondor-chic-api.mendrika.dev",
             "description": "API Server"
+        },
+        {
+            "url": "https://gondor-chic-api.mendrika.dev"
         }
     ],
     "paths": {
         "/api/produits-du-jour": {
             "get": {
-                "tags": [
-                    "Produits"
-                ],
+                "tags": ["Produits"],
                 "summary": "Get today's featured magical products",
                 "description": "Returns a list of magical products that are featured for today",
                 "operationId": "getProduitsDuJour",
@@ -42,9 +43,7 @@
         },
         "/api/produits": {
             "get": {
-                "tags": [
-                    "Produits"
-                ],
+                "tags": ["Produits"],
                 "summary": "Get all magical products",
                 "description": "Returns a list of all magical products in the inventory",
                 "operationId": "getAllProduits",
@@ -64,6 +63,85 @@
                     },
                     "500": {
                         "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/api/auth/login": {
+            "post": {
+                "tags": ["Clients"],
+                "summary": "Client login",
+                "description": "Authenticate user and return JWT access token",
+                "operationId": "loginClient",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": ["pseudo", "mot_de_passe"],
+                                "properties": {
+                                    "pseudo": {
+                                        "description": "Username",
+                                        "type": "string",
+                                        "example": "gandalf_le_gris"
+                                    },
+                                    "mot_de_passe": {
+                                        "description": "Password",
+                                        "type": "string",
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "access_token": {
+                                            "description": "JWT access token",
+                                            "type": "string"
+                                        },
+                                        "token_type": {
+                                            "type": "string",
+                                            "example": "bearer"
+                                        },
+                                        "expires_in": {
+                                            "description": "Token expiration time in seconds",
+                                            "type": "integer"
+                                        },
+                                        "user": {
+                                            "$ref": "#/components/schemas/User"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Invalid credentials",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Identifiants invalides"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error"
                     }
                 }
             }
@@ -90,28 +168,66 @@
                     "reference": {
                         "description": "Product reference code",
                         "type": "string",
-                        "example": "MTH-001"
+                        "example": "REF001"
                     },
                     "libelle": {
                         "description": "Product name/label",
                         "type": "string",
-                        "example": "Mithril Shirt - Size L"
+                        "example": "Vin Elrond"
                     },
                     "est_du_jour": {
                         "description": "Whether this product is featured today",
                         "type": "boolean",
-                        "example": true
+                        "example": false
                     },
                     "prix": {
-                        "description": "Product price in gold coins",
-                        "type": "number",
-                        "format": "float",
-                        "example": 150.99
+                        "description": "Product price in GondAriary",
+                        "type": "string",
+                        "example": "34.90"
                     },
                     "quantite_en_stock": {
                         "description": "Available quantity in stock",
                         "type": "integer",
-                        "example": 25
+                        "example": 12
+                    },
+                    "image_url": {
+                        "description": "URL of the product image",
+                        "type": "string",
+                        "example": "vin_elrond.jpg"
+                    }
+                },
+                "type": "object"
+            },
+            "User": {
+                "title": "User",
+                "description": "User model for authentication and profile management",
+                "required": ["id", "pseudo", "nom", "prenom"],
+                "properties": {
+                    "id": {
+                        "description": "Unique identifier of the user",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "pseudo": {
+                        "description": "Unique username",
+                        "type": "string",
+                        "example": "gandalf_le_gris"
+                    },
+                    "nom": {
+                        "description": "User's last name",
+                        "type": "string",
+                        "example": "Gandalf"
+                    },
+                    "prenom": {
+                        "description": "User's first name",
+                        "type": "string",
+                        "example": "Mithrandir"
+                    },
+                    "image_url": {
+                        "description": "URL of the user's profile image",
+                        "type": "string",
+                        "example": "gandalf.jpg",
+                        "nullable": true
                     }
                 },
                 "type": "object"
@@ -122,6 +238,10 @@
         {
             "name": "Produits",
             "description": "API Endpoints for managing magical products"
+        },
+        {
+            "name": "Clients",
+            "description": "API Endpoints for client management"
         }
     ]
 }

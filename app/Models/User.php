@@ -1,45 +1,75 @@
 <?php
 
+
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable
+/**
+ * @OA\Schema(
+ *     schema="User",
+ *     type="object",
+ *     title="User",
+ *     description="User model for authentication and profile management",
+ *     required={"id", "pseudo", "nom", "prenom"},
+ *     @OA\Property(
+ *         property="id",
+ *         type="integer",
+ *         format="int64",
+ *         description="Unique identifier of the user"
+ *     ),
+ *     @OA\Property(
+ *         property="pseudo",
+ *         type="string",
+ *         description="Unique username",
+ *         example="gandalf_le_gris"
+ *     ),
+ *     @OA\Property(
+ *         property="nom",
+ *         type="string",
+ *         description="User's last name",
+ *         example="Gandalf"
+ *     ),
+ *     @OA\Property(
+ *         property="prenom",
+ *         type="string",
+ *         description="User's first name",
+ *         example="Mithrandir"
+ *     ),
+ *     @OA\Property(
+ *         property="image_url",
+ *         type="string",
+ *         nullable=true,
+ *         description="URL of the user's profile image",
+ *         example="gandalf.jpg"
+ *     )
+ * )
+ */
+class User extends Authenticatable implements JWTSubject
 {
-    use HasApiTokens, HasFactory, Notifiable;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'pseudo', 'nom', 'prenom', 'mot_de_passe', 'image_url'
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
-        'password',
-        'remember_token',
+        'mot_de_passe',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
-    ];
+    // JWT methods
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
+
+    // Pour que Laravel utilise le bon champ pour le mot de passe
+    public function getAuthPassword()
+    {
+        return $this->mot_de_passe;
+    }
 }
